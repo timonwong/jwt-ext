@@ -1,4 +1,8 @@
-# JWT extensions
+# JWT Extensions
+
+## Subpackages
+
+- [jwt-go](./jwt-go): Extensions for [jwt-go](https://github.com/dgrijalva/jwt-go).
 
 ## EdDSA
 

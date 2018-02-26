@@ -49,6 +49,10 @@ func (m *SigningMethodEdDSAImpl) Verify(signingString, signature string, key int
 		return jwt.ErrInvalidKeyType
 	}
 
+	if len(edKey) != ed25519.PublicKeySize {
+		return jwt.ErrInvalidKey
+	}
+
 	// Verify the signature
 	if status := ed25519.Verify(edKey, []byte(signingString), sig); status == true {
 		return nil
@@ -67,6 +71,10 @@ func (m *SigningMethodEdDSAImpl) Sign(signingString string, key interface{}) (st
 		edKey = k
 	default:
 		return "", jwt.ErrInvalidKeyType
+	}
+
+	if len(edKey) != ed25519.PrivateKeySize {
+		return "", jwt.ErrInvalidKey
 	}
 
 	sig := ed25519.Sign(edKey, []byte(signingString))
